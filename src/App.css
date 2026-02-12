@@ -1,0 +1,24 @@
+.scrapbook-main-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('./assets/your-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.content-layer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px; /* Good for future 3D card flips */
+}

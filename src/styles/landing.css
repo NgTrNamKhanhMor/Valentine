@@ -1,0 +1,78 @@
+/* Make sure the body doesn't scroll and takes full height */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.scrapbook-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.paper-card {
+  position: relative;
+  width: 60%; /* Adjust based on your preference */
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paper-base {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.heart-wrapper {
+  position: absolute;
+  /* This centers the heart perfectly inside the paper card */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  cursor: pointer;
+  z-index: 10;
+}
+
+.heart-image {
+  width: 100px; /* Adjust size as needed */
+  transition: transform 0.2s ease;
+}
+
+/* HEARTBEAT ONLY ON CLICK */
+.beating {
+  animation: heartbeat 0.8s ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.instruction-text {
+  position: absolute;
+  bottom: 20%;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: #5d4037;
+  pointer-events: none; /* So you can click through the text to the heart */
+}
+.sticker.flower {
+  position: absolute;
+  top: -20px;
+  right: 10px;
+  width: 80px;
+  transform: rotate(15deg);
+}
