@@ -1,6 +1,6 @@
 import backgroundImage from "../assets/pattern-bg.png";
 import paperTexture from "../assets/ripped-paper.png";
-import heartImage from "../assets/origami-heart.png";
+import heartImage from "../assets/3.png";
 import flowerSticker from "../assets/flower.png";
 import { useState } from "react";
 
