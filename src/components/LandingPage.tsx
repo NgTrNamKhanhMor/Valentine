@@ -1,40 +1,54 @@
-import backgroundImage from "../assets/pattern-bg.png";
-import paperTexture from "../assets/ripped-paper.png";
-import heartImage from "../assets/origami-heart.png";
-import flowerSticker from "../assets/flower.png";
 import { useState } from "react";
-
 import "../styles/landing.css";
+import BackgroundLayout from "./BackgroundLayout";
+
+// Assets
+import paperTexture from "../assets/ripped-paper.png"; // The burnt-edge paper
+import heartImage from "../assets/origami-heart.png";
+import butterflySticker from "../assets/butterfly.png"; // New asset based on pic
+// You can use a small semi-transparent div for tape or a tape.png
 
 interface Props {
   onComplete: () => void;
 }
+
 export default function LandingPage({ onComplete }: Props) {
   const [isBeating, setIsBeating] = useState(false);
 
   const handleHeartClick = () => {
     if (isBeating) return;
     setIsBeating(true);
-    onComplete();
+    // Add a slight delay so they see the beat before moving on
+    setTimeout(() => {
+        onComplete();
+    }, 800);
   };
-  return (
-    <div
-      className="scrapbook-container"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <div className="paper-card">
-        <img src={paperTexture} alt="paper" className="paper-base" />
-        <img src={flowerSticker} alt="flower" className="sticker flower" />
-        <div className="heart-wrapper" onClick={handleHeartClick}>
-          <img
-            src={heartImage}
-            alt="Heart"
-            className={`heart-image ${isBeating ? "beating" : ""}`}
-          />
-        </div>
 
-        <p className="instruction-text">CLICK THE HEART</p>
+  return (
+    <BackgroundLayout>
+      <div className="landing-container">
+        <div className="paper-card">
+          {/* Burnt Paper Base */}
+          <img src={paperTexture} alt="paper" className="paper-base" />
+          
+          {/* Decorative Elements from the picture */}
+          <div className="tape top-right" />
+          <div className="tape bottom-left" />
+          
+          <div className="heart-section" onClick={handleHeartClick}>
+            <img
+              src={heartImage}
+              alt="Heart"
+              className={`heart-image ${isBeating ? "beating" : ""}`}
+            />
+          </div>
+
+          <p className="instruction-text">Click the heart</p>
+
+          {/* Butterfly in bottom right */}
+          <img src={butterflySticker} alt="butterfly" className="sticker butterfly" />
+        </div>
       </div>
-    </div>
+    </BackgroundLayout>
   );
 }

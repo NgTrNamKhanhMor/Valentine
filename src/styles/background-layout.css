@@ -1,54 +1,46 @@
-.corner-group {
-  position: absolute;
-  width: 450px; /* Much bigger for that dramatic look */
-  height: 450px;
-  z-index: 100;
-  pointer-events: none;
-}
-
-.map-layer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* This creates the scalloped/round organic edge seen in the first photo */
-  border-radius: 50% 20% 80% 10%; 
-  opacity: 0.9;
-}
-
-.ripped-layer {
-  position: absolute;
-  width: 110%;
-  height: 110%;
-  top: -5%;
-  left: -5%;
-  object-fit: contain;
-  /* This makes the brown paper look like it's part of the map texture */
-  mix-blend-mode: multiply; 
-  filter: brightness(1.1) contrast(0.9);
-}
-
-/* --- Unique Angles & Zooms --- */
-
-.tl { top: -150px; left: -150px; transform: rotate(-5deg); }
-.tl .map-layer { object-position: top left; }
-
-.tr { top: -200px; right: -80px; transform: rotate(0deg) scaleX(-1); }
-.tr .map-layer { object-position: top right; }
-
-.bl { bottom: -200px; left: -100px; transform: rotate(-120deg); }
-.bl .map-layer { object-position: bottom left; }
-
-.br { bottom: -200px; right: -80px; transform: rotate(180deg); }
-.br .map-layer { object-position: bottom right; }
-
-/* --- The Main Board Fix --- */
 .main-board {
   position: absolute;
   inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  background-color: transparent; 
+}
+
+.main-board::before {
+  content: ""; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+  background-image: inherit; 
   background-size: cover;
   background-position: center;
-  z-index: 10;
-  /* Subtle vignette to focus the center like image 1 */
-  box-shadow: inset 0 0 150px rgba(0,0,0,0.3);
+  
+  /* Constant Zoom */
+  transform: scale(1.2); 
+  transform-origin: center;
+}
+
+.scrapbook-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stage-content {
+  /* This ensures the 'stage' takes up the whole board */
+  width: 100%;
+  height: 100%;
+  display: flex;           /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  position: relative;
+  z-index: 20;
 }

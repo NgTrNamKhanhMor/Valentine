@@ -13,16 +13,27 @@
 
 .cat-zone {
   position: absolute;
-  top: 50%;
+  top: 45%; 
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
+  
+  height: 40%; 
+  aspect-ratio: 1 / 1; 
+  
   border: 4px dashed rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
+}
+.main-cat {
+  width: 80%; 
+  height: 80%;
+  object-fit: contain;
+  /* If the cat image specifically has internal padding, 
+     you can nudge it here without moving the dashed box */
+  margin-top: -20px; 
 }
 
 .success-message {
@@ -36,3 +47,105 @@
   font-family: 'cursive';
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
+
+.question-container {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 100;
+}
+
+.question-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #5d4037;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.button-group {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px; /* Prevents layout jump when No vanishes */
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.1s;
+}
+
+.yes-btn {
+  background-color: #ff80ab;
+  color: white;
+}
+
+.no-btn {
+  background-color: #bdbdbd;
+  color: white;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.ui-overlay {
+  position: absolute;
+  width: 100%;
+  bottom: 10%; /* Positions text/buttons below the cat */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  text-align: center;
+}
+
+.nub-text, .congrat-text, .valentine-text {
+  font-family: 'Dancing Script', cursive;
+  color: #5d4037;
+  margin-bottom: 15px;
+}
+
+.nub-text { font-size: 2.8rem; }
+.congrat-text { font-size: 1.8rem; max-width: 80%; }
+.valentine-text { font-size: 2rem; }
+
+.play-btn {
+  background-color: #ff80ab;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.button-group {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.yes-btn { background: #ff80ab; color: white; }
+.no-btn { background: #bdbdbd; color: white; }
