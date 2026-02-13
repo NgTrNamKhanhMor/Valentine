@@ -8,18 +8,18 @@
 .draggable-item {
   width: 100px; /* Make sure items have a visible size */
   height: auto;
-  z-index: 50; 
+  z-index: 50;
 }
 
 .cat-zone {
   position: absolute;
-  top: 45%; 
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
-  height: 40%; 
-  aspect-ratio: 1 / 1; 
-  
+
+  height: 55%;
+  aspect-ratio: 1 / 1;
+
   border: 4px dashed rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   display: flex;
@@ -27,13 +27,17 @@
   align-items: center;
   z-index: 5;
 }
+
+.start {
+  border: none;
+}
 .main-cat {
-  width: 80%; 
+  width: 80%;
   height: 80%;
   object-fit: contain;
   /* If the cat image specifically has internal padding, 
      you can nudge it here without moving the dashed box */
-  margin-top: -20px; 
+  margin-top: -20px;
 }
 
 .success-message {
@@ -44,8 +48,8 @@
   background: white;
   padding: 10px 20px;
   border-radius: 50px;
-  font-family: 'cursive';
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  font-family: "cursive";
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .question-container {
@@ -58,11 +62,11 @@
 }
 
 .question-text {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
   font-size: 2.5rem;
   color: #5d4037;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .button-group {
@@ -79,7 +83,7 @@
   border-radius: 25px;
   font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.1s;
 }
 
@@ -100,7 +104,7 @@
 .ui-overlay {
   position: absolute;
   width: 100%;
-  bottom: 10%; /* Positions text/buttons below the cat */
+  bottom: 15%; /* Positions text/buttons below the cat */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -109,26 +113,67 @@
   z-index: 100;
   text-align: center;
 }
-
-.nub-text, .congrat-text, .valentine-text {
-  font-family: 'Dancing Script', cursive;
+.end {
+  bottom: 30%;
+}
+.nub-text,
+.congrat-text,
+.valentine-text {
+  font-size: 4.8rem;
   color: #5d4037;
   margin-bottom: 15px;
 }
 
-.nub-text { font-size: 2.8rem; }
-.congrat-text { font-size: 1.8rem; max-width: 80%; }
-.valentine-text { font-size: 2rem; }
+.congrat-text {
+  font-size: 3rem;
+  margin: auto;
+  max-width: 80%;
+}
+.valentine-text {
+  font-size: 3rem;
+}
 
-.play-btn {
-  background-color: #ff80ab;
-  color: white;
+.play-btn-container {
+  position: relative; /* Essential for absolute children */
+  background: none;
   border: none;
-  padding: 10px 40px;
-  border-radius: 50px;
-  font-size: 1.5rem;
+  padding: 0;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.play-button-bg {
+  width: 180px; /* Adjust based on your image size */
+  height: auto;
+  display: block;
+  /* Filters can make the 'paper' look more like a button */
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.play-btn-text {
+  position: absolute; /* Takes text out of flow to put it ON TOP of image */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* The magic centering formula */
+
+  /* Styling the font */
+  font-family: "Genty Sans", sans-serif;
+  font-size: 1.5rem;
+  color: #5d4037; /* Dark brown for a scrapbook look */
+  white-space: nowrap;
+  pointer-events: none; /* Clicks go through text to the button */
+}
+
+/* Interaction Effects */
+.play-btn-container:hover {
+  transform: scale(1.05);
+}
+
+.play-btn-container:active {
+  transform: scale(0.95);
 }
 
 .button-group {
@@ -147,5 +192,11 @@
   cursor: pointer;
 }
 
-.yes-btn { background: #ff80ab; color: white; }
-.no-btn { background: #bdbdbd; color: white; }
+.yes-btn {
+  background: #ff80ab;
+  color: white;
+}
+.no-btn {
+  background: #bdbdbd;
+  color: white;
+}

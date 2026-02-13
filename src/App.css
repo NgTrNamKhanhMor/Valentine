@@ -1,3 +1,22 @@
+/* index.css or App.css */
+
+@font-face {
+  font-family: 'Genty Sans';
+  src: url('../src/assets/fonts/genty-sans.woff2') format('woff2'),
+       url('../src/assets/fonts/genty-sans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  /* Set it as the default for the whole app */
+  font-family: 'Genty Sans', sans-serif;
+}
+
+body {
+  font-family: 'Genty Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 .scrapbook-main-container {
   position: relative;
   width: 100vw;

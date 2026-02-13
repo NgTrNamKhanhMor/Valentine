@@ -1,52 +1,155 @@
+.second-page-scroll-container {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
 
-/* Fix the background scaling issue from your screenshot */
-.scrapbook-container {
-  min-height: 100vh;
-  width: 100vw;
-  background-size: cover;      /* This stops the white gaps */
-  background-position: center;
-  background-attachment: fixed;
+.section-poem,
+.section-pick {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;           /* Allow scrolling if poem is long */
-}
-
-/* The Poem Page Container */
-.poem-paper {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 40px;
-  width: 350px;
-  box-shadow: 2px 2px 15px rgba(0,0,0,0.1);
-  border-radius: 2px;
   position: relative;
-  margin: 20px;
-}
 
-/* Typewriter Animation */
-.typewriter-text {
-  display: inline-block;
+  /* Use a percentage > 100% to 'zoom' without overflow */
+  background-size: 130%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* This prevents the zoom from showing outside the screen */
   overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid transparent; /* Cursor effect if you want it */
-  animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #8b5e3c; }
+/* The Poem Paper */
+.poem-paper {
+  width: 80%;
+  max-width: 450px;
+  /* Adjust padding so text doesn't hit the edges of the paper scroll */
+  padding: 60px 40px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 2;
 }
 
 .poem-line {
-  font-family: 'Georgia', serif;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #4a3728;
-  margin-bottom: 10px;
-  overflow: hidden;
+  font-family: "Genty Sans", sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #4b3621;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+/* Butterfly placed relative to the center paper */
+.butterfly-overlay {
+  position: absolute;
+  bottom: 20%;
+  right: 20%;
+  width: 60px;
+  transform: rotate(15deg);
+  z-index: 3;
+}
+
+/* Pick One Layout */
+.pick-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.pick-title {
+  font-family: "Genty Sans", sans-serif;
+  font-size: 2.5rem;
+  background: white;
+  color: black;
+  padding: 5px 30px;
+  border: 1px solid #ccc;
+  transform: rotate(-2deg);
+  margin-bottom: 40px;
+}
+
+.choices-grid {
+  display: flex;
+  gap: 50px;
+}
+
+.choice-card {
+  cursor: pointer;
+  text-align: center;
+}
+
+.choice-img {
+  width: 140px;
+  height: auto;
+  filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.2));
+}
+
+.choice-text {
+  font-family: "Genty Sans", sans-serif;
+  margin-top: 10px;
+  color: #5d4037;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  font-family: "Genty Sans", sans-serif;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.flower-fixed-left,
+.flower-fixed-right {
+  position: absolute;
+  bottom: 0;
+  width: 200px; /* Adjust size to fit your screen */
+  z-index: 1;
+  pointer-events: none;
+  width: 30%;
+}
+
+.flower-fixed-left {
+  bottom: -20%;
+  left: -10%;
+}
+
+.flower-fixed-right {
+  bottom: -20%;
+  right: -10%;
+}
+
+.line-asset {
+  position: absolute;
+  top: 35%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* The Frame Files */
+.frame-asset {
+  position: absolute;
+  width: 100px; /* Adjust size to match image_ce98c1.jpg */
+  z-index: 2;
+  pointer-events: none;
+}
+
+.frame-left {
+  top: 40%;
+  left: 10%;
+  transform: rotate(-10deg);
+}
+
+.frame-right {
+  top: 15%;
+  right: 12%;
+  transform: rotate(8deg);
 }

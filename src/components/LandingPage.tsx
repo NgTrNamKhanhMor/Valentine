@@ -3,7 +3,7 @@ import "../styles/landing.css";
 import BackgroundLayout from "./BackgroundLayout";
 
 // Assets
-import paperTexture from "../assets/ripped-paper.png"; // The burnt-edge paper
+import paperTexture from "../assets/paper-cut.png"; // The burnt-edge paper
 import heartImage from "../assets/origami-heart.png";
 import butterflySticker from "../assets/butterfly.png"; // New asset based on pic
 // You can use a small semi-transparent div for tape or a tape.png
