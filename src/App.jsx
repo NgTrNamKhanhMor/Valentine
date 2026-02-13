@@ -2,30 +2,32 @@ import { useState } from 'react';
 import './App.css';
 import LandingPage from './components/LandingPage';
 import SecondPage from './components/SecondPage';
+import DragStage from './components/DragPage';
 
 function App() {
-  const [stage, setStage] = useState('landing'); 
+  // Use numbers: 1 = Landing, 2 = Poem, 3 = Drag Game
+  const [stage, setStage] = useState(1); 
 
-  // High-level function to move between scenes
-  const nextStage = (next) => {
-    setStage(next);
+  const nextStage = () => {
+    setStage((prev) => prev + 1);
   };
-  console.log(stage)
+
   return (
    <div className="scrapbook-main-container">
-      <div className="background-layer" />
-
-      {/* Stage Controller */}
       <div className="content-layer">
-        {stage === 'landing' && (
-          <LandingPage onComplete={() => nextStage('poem')} />
+         {stage === 1 && (
+          <DragStage onComplete={nextStage} />
+        )}
+        {stage === 2 && (
+          <LandingPage onComplete={nextStage} />
         )}
         
-        {stage === 'poem' && (
-          <SecondPage onComplete={() => nextStage('next_feature_here')} />
+        {stage === 3 && (
+          <SecondPage onComplete={nextStage} />
         )}
-        
-        {/* ADD MORE STAGES HERE LATER */}
+        {stage === 4 && (
+          <div className="final-screen">Final Surprise Here!</div>
+        )}
       </div>
     </div>
   );
