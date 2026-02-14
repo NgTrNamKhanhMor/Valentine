@@ -1,3 +1,8 @@
+/* Flipable hint fade-in animation */
+.rose-flipable-hint {
+  opacity: 0;
+  animation: rose-fade-in 2s ease-out forwards 6s;
+}
 .rose-bg-video {
   position: fixed;
   top: 0;
