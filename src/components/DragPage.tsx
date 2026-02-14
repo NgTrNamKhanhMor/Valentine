@@ -29,7 +29,7 @@ export default function DragStage({ onComplete }: Props) {
   >("start");
   const [catImage, setCatImage] = useState(catGif1);
   const [noButtonScale, setNoButtonScale] = useState(1);
-
+  const [catScale, setCatScale] = useState(1);
   const [items, setItems] = useState<Item[]>([
     { id: "donut", img: donut, x: "75%", y: "15%", fed: false },
     { id: "icecream", img: icecream, x: "75%", y: "40%", fed: false },
@@ -78,6 +78,8 @@ export default function DragStage({ onComplete }: Props) {
       setItems((prev) =>
         prev.map((item) => (item.id === id ? { ...item, fed: true } : item)),
       );
+      setCatScale(1.2);
+      setTimeout(() => setCatScale(1), 200);
     }
   };
 
@@ -89,8 +91,8 @@ export default function DragStage({ onComplete }: Props) {
           <motion.img
             key={catImage}
             src={catImage}
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            animate={{ scale: catScale }}
+            transition={{ type: "spring", stiffness: 300 }}
             className="main-cat"
           />
         </div>
@@ -137,32 +139,54 @@ export default function DragStage({ onComplete }: Props) {
           )}
 
           {gameStep === "valentine" && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="step-ui"
-            >
-              <h2 className="valentine-text">
-                Will you be the pink Nub for my Valentine?
-              </h2>
-              <div className="button-group">
-                <button className="btn yes-btn" onClick={onComplete}>
-                  Yes
-                </button>
-                <AnimatePresence>
-                  {noButtonScale > 0 && (
-                    <motion.button
-                      className="btn no-btn"
-                      animate={{ scale: noButtonScale }}
-                      onClick={handleNoClick}
-                      exit={{ scale: 0, opacity: 0 }}
-                    >
-                      No
-                    </motion.button>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
+            <>
+              {[...Array(6)].map((_, i) => (
+                <motion.span
+                  key={i}
+                  className="floating-heart"
+                  initial={{
+                    y: "100vh",
+                    x: `${Math.random() * 100}vw`,
+                    opacity: 0,
+                  }}
+                  animate={{ y: "-10vh", opacity: [0, 1, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, delay: i * 0.8 }}
+                  style={{
+                    position: "fixed",
+                    fontSize: "2rem",
+                    pointerEvents: "none",
+                  }}
+                >
+                  ❤️
+                </motion.span>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="step-ui"
+              >
+                <h2 className="valentine-text">
+                  Will you be the pink Nub for my Valentine?
+                </h2>
+                <div className="button-group">
+                  <button className="btn yes-btn" onClick={onComplete}>
+                    Yes
+                  </button>
+                  <AnimatePresence>
+                    {noButtonScale > 0 && (
+                      <motion.button
+                        className="btn no-btn"
+                        animate={{ scale: noButtonScale }}
+                        onClick={handleNoClick}
+                        exit={{ scale: 0, opacity: 0 }}
+                      >
+                        No
+                      </motion.button>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            </>
           )}
         </div>
 

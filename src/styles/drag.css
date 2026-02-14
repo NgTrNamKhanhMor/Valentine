@@ -6,7 +6,7 @@
 }
 
 .draggable-item {
-  width: 100px; /* Make sure items have a visible size */
+  width: 10rem; /* Make sure items have a visible size */
   height: auto;
   z-index: 50;
 }

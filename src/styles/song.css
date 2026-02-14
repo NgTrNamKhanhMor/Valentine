@@ -62,19 +62,26 @@
 }
 
 /* Top-left fixed star with a gentle sway (lắc lư) animation */
-.musicalThingy-top-left {
+.musicalThingy-wrapper {
   position: fixed;
   top: 3%;
-  left: 90%;
+  left: 82%;
   width: 250px;
   height: auto;
   z-index: 9999;
   pointer-events: none;
   transform-origin: center;
+  transform: scaleX(-1);
+}
+
+.musicalThingy-top-left {
+  transform-origin: center;
+  width: 100%;
+  height: auto;
   /* combine the existing pulse with a sway for a subtle effect */
   animation:
     pulse-motion 3s infinite ease-in-out,
-    sway 4s infinite ease-in-out;
+    sway 3.6s infinite ease-in-out;
 }
 
 @keyframes sway {
@@ -87,4 +94,192 @@
   100% {
     transform: translateX(0) rotate(0deg);
   }
+}
+
+/* Gentle shake for left-middle element (keeps its translateY base) */
+@keyframes gentle-shake-left {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-6px) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(6px) rotate(1deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+/* Simple fade-in */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Gentle shake for centered elements (keeps translate(-50%, -50%) base) */
+@keyframes gentle-shake-center {
+  0% {
+    transform: translate(-50%, -50%) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateX(-8px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateX(0) rotate(0deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateX(8px) rotate(1.2deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(0) rotate(0deg);
+  }
+}
+
+/* Slide-in from below to final centered position */
+@keyframes slide-in-up-center {
+  0% {
+    transform: translate(-50%, 40vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Three-pic positioned middle-left (~10%) */
+.three-pic-wrapper {
+  position: fixed;
+  left: 6%;
+  top: 52%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  max-width: 1600px;
+  width: 25vw;
+  pointer-events: none;
+  opacity: 0;
+  /* fade in then start spinning */
+  animation: fade-in 0.9s ease-out forwards;
+  /*  spin-horizontal 6s linear infinite 0.9s; */
+  transform-style: preserve-3d;
+  transform-origin: center;
+}
+
+.three-pic {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+@keyframes spin-horizontal {
+  from { transform: translateY(-50%) rotateY(0deg); }
+  to { transform: translateY(-50%) rotateY(360deg); }
+}
+
+/* Autoplay play button shown when autoplay is blocked */
+.autoplay-play-btn {
+  position: fixed;
+  top: 12px;
+  left: 110px;
+  z-index: 10000;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* Bottom-right audio controls container */
+.control-container {
+  position: fixed;
+  right: 14px;
+  bottom: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 8px 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10000;
+}
+
+.volume-button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px;
+}
+
+.volume-range {
+  width: 120px;
+  accent-color: #ff6b6b;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10001;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 2px solid #ff7fb8;
+  background: linear-gradient(135deg, #ff69b4 0%, #ff7fb8 100%);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: back-button-fade-in 0.8s ease-out forwards 10s;
+  box-shadow: 0 4px 15px rgba(255, 107, 180, 0.3);
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, #ff5fab 0%, #ff69b4 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 180, 0.5);
+  transform: translateY(-2px);
+}
+
+@keyframes back-button-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+/* Centered TV image */
+.tv-center {
+  position: fixed;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  max-width: 800px;
+  width: 88vw;
+  pointer-events: none;
+  opacity: 0;
+  animation: slide-in-up-center 0.9s ease-out forwards,
+    gentle-shake-center 3.6s infinite ease-in-out 0.9s;
+}
+
+/* Title image positioned just above the TV */
+.title-center {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  max-width: 800px;
+  width: 88vw;
+  pointer-events: none;
+  opacity: 0;
+  animation: slide-in-up-center 0.9s ease-out forwards,
+    gentle-shake-center 3.6s infinite ease-in-out 0.9s;
 }

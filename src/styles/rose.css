@@ -1,0 +1,127 @@
+.rose-page-scroll-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.rose-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.rose-left-bear {
+  position: fixed;
+  left: 7%;
+  top: 72%;
+  transform: translateY(-50%);
+  z-index: 1;
+  max-width: 400px;
+  width: 20vw;
+  height: auto;
+  pointer-events: auto;
+  opacity: 0;
+  animation: bear-fade-in 2s ease-out forwards 2s,
+    bear-gentle-shake 2s infinite ease-in-out 2s;
+}
+
+.rose-center-pic {
+  position: relative;
+  z-index: 1;
+  width: 80vw;
+  height: auto;
+  pointer-events: auto;
+  opacity: 0;
+  animation: rose-fade-in 2s ease-out forwards 2s,
+    pic-zoom 8s infinite ease-in-out 2s;
+}
+
+@keyframes rose-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bear-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bear-gentle-shake {
+  0% {
+    transform: translateY(-50%) translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50%) translateX(-4px) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateY(-50%) translateX(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-50%) translateX(4px) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(-50%) translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes pic-zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10001;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: 2px solid #ff7fb8;
+  background: linear-gradient(135deg, #ff69b4 0%, #ff7fb8 100%);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: back-button-fade-in 0.8s ease-out forwards 10s;
+  box-shadow: 0 4px 15px rgba(255, 107, 180, 0.3);
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, #ff5fab 0%, #ff69b4 100%);
+  box-shadow: 0 6px 20px rgba(255, 107, 180, 0.5);
+  transform: translateY(-2px);
+}
+
+@keyframes back-button-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}

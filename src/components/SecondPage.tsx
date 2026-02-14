@@ -9,7 +9,10 @@ import butterfly from "../assets/butterfly.png";
 import vinylImg from "../assets/vinyl.png";
 import flowerImg from "../assets/paper-rose.png";
 import flowersSticker from "../assets/flower-2.png";
+import lineWithPic from "../assets/line-with-pic.png";
 import flowersSticker2 from "../assets/flower-3.png";
+import pinkFlower from "../assets/pink-flower.png";
+import line from "../assets/line.png";
 
 const poemLines = [
   "Happy Valentine my sweet mango,",
@@ -29,6 +32,24 @@ export default function SecondPage({ onSong, onRose }: Props) {
         className="section-poem"
         style={{ backgroundImage: `url(${poemBg})` }}
       >
+        <div className="decoration-layer">
+          <img src={line} className="line" alt="line" />
+          <img src={lineWithPic} className="line-across" alt="flowers" />
+        </div>
+        <motion.img
+          src={pinkFlower}
+          className="pink-flower"
+          alt="flower-decoration"
+          animate={{
+            rotate: [-5, 5, -5], // Gentle swaying
+            scale: [1, 1.05, 1], // Subtle breathing/pulse
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
         <img src={flowersSticker} className="flower-fixed-left" alt="flowers" />
         <img
           src={flowersSticker2}
@@ -55,9 +76,31 @@ export default function SecondPage({ onSong, onRose }: Props) {
           ))}
         </motion.div>
 
-        <img src={butterfly} className="butterfly-overlay" alt="butterfly" />
-
-        <div className="scroll-hint">Scroll down to pick ⏷</div>
+        <motion.img
+          src={butterfly}
+          className="butterfly-overlay"
+          alt="butterfly"
+          animate={{
+            // Flying around in a small erratic circle/path
+            x: [0, 40, -30, 20, 0],
+            y: [0, -50, -20, -60, 0],
+            rotate: [15, 5, 25, 10, 15],
+            // Wing flapping
+            scaleX: [1, 0.3, 1],
+          }}
+          transition={{
+            // The flight path duration
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            // The flap duration (must be much faster)
+            scaleX: {
+              duration: 0.6,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        />
       </section>
 
       {/* SECTION 2: PICK ONE */}
@@ -76,16 +119,47 @@ export default function SecondPage({ onSong, onRose }: Props) {
               whileHover={{ scale: 1.1 }}
               onClick={onSong}
             >
-              <img src={vinylImg} alt="Vinyl" className="choice-img" />
+              <motion.img
+                src={vinylImg}
+                alt="Vinyl"
+                className="choice-img"
+                /* Continuous spin */
+                animate={{ rotate: 360 }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "linear",
+                }}
+              />
               <p className="choice-text">Vintage Vinyl</p>
             </motion.div>
 
             <motion.div
               className="choice-card"
-              whileHover={{ scale: 1.1 }}
+              /* Emphasize on hover: slightly bigger and a gentle tilt */
+              whileHover={{
+                scale: 1.15,
+                rotate: [0, -5, 5, -5, 0],
+              }}
+              transition={{
+                rotate: { duration: 0.5, repeat: Infinity },
+              }}
               onClick={onRose}
             >
-              <img src={flowerImg} alt="Flower" className="choice-img" />
+              <motion.img
+                src={flowerImg}
+                alt="Flower"
+                className="choice-img"
+                /* Idle emphasize: gentle breathing */
+                animate={{
+                  y: [0, -5, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
               <p className="choice-text">Paper Rose</p>
             </motion.div>
           </div>

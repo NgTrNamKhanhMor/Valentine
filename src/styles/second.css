@@ -2,7 +2,9 @@
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-  scroll-snap-type: y mandatory;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+  scroll-behavior: smooth;
 }
 
 .section-poem,
@@ -52,7 +54,7 @@
   position: absolute;
   bottom: 20%;
   right: 20%;
-  width: 60px;
+  width: 15rem;
   transform: rotate(15deg);
   z-index: 3;
 }
@@ -87,7 +89,7 @@
 }
 
 .choice-img {
-  width: 140px;
+  width: 20rem;
   height: auto;
   filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.2));
 }
@@ -152,4 +154,38 @@
   top: 15%;
   right: 12%;
   transform: rotate(8deg);
+}
+.decoration-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Base line and Line-with-Pictures */
+.line,
+.line-across {
+  position: absolute;
+  /* Adjust this percentage until the line aligns with your background calendar */
+  left: 0;
+  width: 100vw;
+  /* Use object-fit if the images have different aspect ratios */
+  object-fit: contain;
+}
+
+/* If one image is slightly higher than the other, 
+   adjust the 'top' value for just that one here */
+.line-across {
+  z-index: 2;
+  /* Example: top: 35.5%; if it's slightly off */
+}
+
+.pink-flower {
+  position: absolute;
+  width: 15rem;
+  bottom: 10%;
+  left: 20%;
 }

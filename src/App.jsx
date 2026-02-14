@@ -4,10 +4,10 @@ import LandingPage from './components/LandingPage';
 import SecondPage from './components/SecondPage';
 import DragStage from './components/DragPage';
 import SongPage from './components/SongPage';
+import RosePage from './components/RosePage';
 
 function App() {
-  // Use numbers: 1 = Landing, 2 = Poem, 3 = Drag Game
-  const [stage, setStage] = useState(3); 
+  const [stage, setStage] = useState(1); 
 
   const nextStage = () => {
     setStage((prev) => prev + 1);
@@ -30,7 +30,10 @@ function App() {
           <SecondPage onSong={()=>toStep(4)} onRose={()=> toStep(5)}/>
         )}
         {stage === 4 && (
-          <SongPage onComplete={()=>{}}/>
+          <SongPage onComplete={() => toStep(3)}/>
+        )}
+        {stage === 5 && (
+          <RosePage onComplete={() => toStep(3)} />
         )}
       </div>
     </div>

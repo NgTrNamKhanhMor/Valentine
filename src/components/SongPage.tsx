@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/song.css";
 import starImg from "../assets/songpage/star.png";
-import musicalThingy from "../assets/songpage/pngwing.com (6).png";
+import musicalThingy from "../assets/songpage/musicalThingy.png";
+import threePic from "../assets/songpage/3pic.png";
+import tvPic from "../assets/songpage/tv.png";
+import titlePic from "../assets/songpage/title.png";
 import audioSrc from "../assets/songpage/audio.mp3";
 
 interface Props {
@@ -13,6 +16,10 @@ interface Props {
 export default function SongPage({ onComplete, volume }: Props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [currentVolume, setCurrentVolume] = useState<number>(
+    volume !== undefined ? Math.max(0, Math.min(1, volume)) : 0.5
+  );
+  const [muted, setMuted] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -40,15 +47,29 @@ export default function SongPage({ onComplete, volume }: Props) {
     }
   }, [volume]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = currentVolume;
+    audio.muted = muted;
+  }, [currentVolume, muted]);
+
   return (
     <div className="song-page-scroll-container">
       <audio ref={audioRef} src={audioSrc} preload="auto" loop />
 
-      <img
-        src={musicalThingy}
-        alt="musicalThingy"
-        className="musicalThingy-element musicalThingy-top-left"
-      />
+      <div className="musicalThingy-wrapper">
+        <img
+          src={musicalThingy}
+          alt="musicalThingy"
+          className="musicalThingy-element musicalThingy-top-left"
+        />
+      </div>
+        <div className="three-pic-wrapper">
+          <img src={threePic} alt="three-pic" className="three-pic" />
+        </div>
+        <img src={titlePic} alt="title" className="title-center" />
+        <img src={tvPic} alt="tv" className="tv-center" />
       <img src={starImg} alt="star" className="star-element star-1" />
       <img src={starImg} alt="star" className="star-element star-2" />
       <img src={starImg} alt="star" className="star-element star-3" />
@@ -59,18 +80,40 @@ export default function SongPage({ onComplete, volume }: Props) {
             audioRef.current?.play();
             setAutoplayBlocked(false);
           }}
-          style={{
-            position: "fixed",
-            top: 12,
-            left: 110,
-            zIndex: 10000,
-            padding: "8px 12px",
-            borderRadius: 6,
-          }}
+          className="autoplay-play-btn"
         >
           Play audio
         </button>
       )}
+
+      <div className="control-container">
+        <button
+          onClick={() => setMuted((m) => !m)}
+          className="volume-button"
+          aria-label={muted ? "Unmute" : "Mute"}
+        >
+          {muted ? "🔇" : currentVolume > 0.5 ? "🔊" : "🔉"}
+        </button>
+
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step={0.01}
+          value={muted ? 0 : currentVolume}
+          onChange={(e) => {
+            const v = parseFloat(e.target.value);
+            setCurrentVolume(v);
+            if (v > 0 && muted) setMuted(false);
+          }}
+          className="volume-range"
+          aria-label="Volume"
+        />
+      </div>
+
+      <button className="back-button" onClick={onComplete}>
+        but i wanna choose the other
+      </button>
     </div>
   );
 }
