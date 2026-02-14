@@ -8,11 +8,10 @@ import chooseBg from "../assets/choose-bg.png";
 import butterfly from "../assets/butterfly.png";
 import vinylImg from "../assets/vinyl.png";
 import flowerImg from "../assets/paper-rose.png";
+import pickImg from "../assets/pick.png";
 import flowersSticker from "../assets/flower-2.png";
-import lineWithPic from "../assets/line-with-pic.png";
 import flowersSticker2 from "../assets/flower-3.png";
 import pinkFlower from "../assets/pink-flower.png";
-import line from "../assets/line.png";
 
 const poemLines = [
   "Happy Valentine my sweet mango,",
@@ -32,10 +31,6 @@ export default function SecondPage({ onSong, onRose }: Props) {
         className="section-poem"
         style={{ backgroundImage: `url(${poemBg})` }}
       >
-        <div className="decoration-layer">
-          <img src={line} className="line" alt="line" />
-          <img src={lineWithPic} className="line-across" alt="flowers" />
-        </div>
         <motion.img
           src={pinkFlower}
           className="pink-flower"
@@ -50,31 +45,17 @@ export default function SecondPage({ onSong, onRose }: Props) {
             ease: "easeInOut",
           }}
         />
-        <img src={flowersSticker} className="flower-fixed-left" alt="flowers" />
         <img
           src={flowersSticker2}
           className="flower-fixed-right"
           alt="flowers"
         />
-        <motion.div
+        <img
+          src={scrollBg}
           className="poem-paper"
-          style={{ backgroundImage: `url(${scrollBg})` }}
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-        >
-          {poemLines.map((line, index) => (
-            <motion.div
-              key={index}
-              className="poem-line"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5 + index * 0.4, duration: 0.8 }}
-            >
-              {line}
-            </motion.div>
-          ))}
-        </motion.div>
+          alt="poem-paper"
+          style={{ width: '40vw', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+        />
 
         <motion.img
           src={butterfly}
@@ -110,12 +91,12 @@ export default function SecondPage({ onSong, onRose }: Props) {
       >
         <div className="pick-content">
           <div className="pick-one-header">
-            <h2 className="pick-title">Pick one</h2>
+            <img src={pickImg} alt="Pick one" className="pick-title" loading="lazy" />
           </div>
 
           <div className="choices-grid">
             <motion.div
-              className="choice-card"
+              className="choice-card vinyl-choice"
               whileHover={{ scale: 1.1 }}
               onClick={onSong}
             >
@@ -123,11 +104,10 @@ export default function SecondPage({ onSong, onRose }: Props) {
                 src={vinylImg}
                 alt="Vinyl"
                 className="choice-img"
-                /* Continuous spin */
                 animate={{ rotate: 360 }}
                 transition={{
                   repeat: Infinity,
-                  duration: 4,
+                  duration: 16,
                   ease: "linear",
                 }}
               />
@@ -135,8 +115,7 @@ export default function SecondPage({ onSong, onRose }: Props) {
             </motion.div>
 
             <motion.div
-              className="choice-card"
-              /* Emphasize on hover: slightly bigger and a gentle tilt */
+              className="choice-card flower-choice"
               whileHover={{
                 scale: 1.15,
                 rotate: [0, -5, 5, -5, 0],
@@ -150,7 +129,6 @@ export default function SecondPage({ onSong, onRose }: Props) {
                 src={flowerImg}
                 alt="Flower"
                 className="choice-img"
-                /* Idle emphasize: gentle breathing */
                 animate={{
                   y: [0, -5, 0],
                 }}

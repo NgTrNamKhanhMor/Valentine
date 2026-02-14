@@ -18,7 +18,7 @@
   position: relative;
 
   /* Use a percentage > 100% to 'zoom' without overflow */
-  background-size: 130%;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 
@@ -28,10 +28,13 @@
 
 /* The Poem Paper */
 .poem-paper {
-  width: 80%;
-  max-width: 450px;
-  /* Adjust padding so text doesn't hit the edges of the paper scroll */
-  padding: 60px 40px;
+  width: 30vw;
+  max-width: 1000px;
+  min-width: 180px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   display: flex;
@@ -40,20 +43,11 @@
   z-index: 2;
 }
 
-.poem-line {
-  font-family: "Genty Sans", sans-serif;
-  font-size: 1.3rem;
-  line-height: 1.6;
-  color: #4b3621;
-  margin-bottom: 12px;
-  text-align: left;
-}
-
 /* Butterfly placed relative to the center paper */
 .butterfly-overlay {
   position: absolute;
   bottom: 20%;
-  right: 20%;
+  right: 17%;
   width: 15rem;
   transform: rotate(15deg);
   z-index: 3;
@@ -68,19 +62,44 @@
 }
 
 .pick-title {
-  font-family: "Genty Sans", sans-serif;
-  font-size: 2.5rem;
-  background: white;
-  color: black;
-  padding: 5px 30px;
-  border: 1px solid #ccc;
-  transform: rotate(-2deg);
-  margin-bottom: 40px;
+  width: 50vw;
+  max-width: 1200px;
+  min-width: 180px;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, 0);
+  display: block;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .choices-grid {
-  display: flex;
-  gap: 50px;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  pointer-events: none;
+  z-index: 2;
+  }
+
+  .vinyl-choice {
+    position: absolute;
+    right: 14vw;
+    bottom: 6vh;
+    pointer-events: auto;
+    z-index: 3;
+  }
+
+  .flower-choice {
+    position: absolute;
+    left: 14vw;
+    bottom: 6vh;
+    pointer-events: auto;
+    z-index: 3;
 }
 
 .choice-card {
@@ -89,14 +108,14 @@
 }
 
 .choice-img {
-  width: 20rem;
+  width: 25rem;
   height: auto;
   filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.2));
 }
 
 .choice-text {
   font-family: "Genty Sans", sans-serif;
-  margin-top: 10px;
+  margin-top: 14px;
   color: #5d4037;
 }
 
@@ -186,6 +205,6 @@
 .pink-flower {
   position: absolute;
   width: 15rem;
-  bottom: 10%;
+  bottom: 20%;
   left: 20%;
 }

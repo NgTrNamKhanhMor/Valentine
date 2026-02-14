@@ -35,21 +35,9 @@ export default function LandingPage({ onComplete }: Props) {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Burnt Paper Base */}
-          <img src={paperTexture} alt="paper" className="paper-base" />
+          <img src={paperTexture} alt="paper" className="paper-base" loading="lazy" />
 
           {/* Decorative Elements from the picture */}
-          <motion.div
-            className="tape top-right"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.4 }}
-          />
-          <motion.div
-            className="tape bottom-left"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 1, duration: 0.4 }}
-          />
 
           <motion.div
             className="heart-section"

@@ -66,13 +66,13 @@ export default function SongPage({ onComplete, volume }: Props) {
         />
       </div>
         <div className="three-pic-wrapper">
-          <img src={threePic} alt="three-pic" className="three-pic" />
+          <img src={threePic} alt="three-pic" className="three-pic" loading="lazy" />
         </div>
-        <img src={titlePic} alt="title" className="title-center" />
-        <img src={tvPic} alt="tv" className="tv-center" />
-      <img src={starImg} alt="star" className="star-element star-1" />
-      <img src={starImg} alt="star" className="star-element star-2" />
-      <img src={starImg} alt="star" className="star-element star-3" />
+        <img src={titlePic} alt="title" className="title-center" loading="lazy" />
+        <img src={tvPic} alt="tv" className="tv-center" loading="lazy" />
+      <img src={starImg} alt="star" className="star-element star-1" loading="lazy" />
+      <img src={starImg} alt="star" className="star-element star-2" loading="lazy" />
+      <img src={starImg} alt="star" className="star-element star-3" loading="lazy" />
 
       {autoplayBlocked && (
         <button

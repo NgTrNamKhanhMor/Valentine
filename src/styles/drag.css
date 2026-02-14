@@ -6,7 +6,7 @@
 }
 
 .draggable-item {
-  width: 10rem; /* Make sure items have a visible size */
+  width: 20rem; /* Make sure items have a visible size */
   height: auto;
   z-index: 50;
 }
@@ -146,7 +146,7 @@
 }
 
 .play-button-bg {
-  width: 180px; /* Adjust based on your image size */
+  width: 300px; /* Adjust based on your image size */
   height: auto;
   display: block;
   /* Filters can make the 'paper' look more like a button */
@@ -161,7 +161,7 @@
 
   /* Styling the font */
   font-family: "Genty Sans", sans-serif;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: #5d4037; /* Dark brown for a scrapbook look */
   white-space: nowrap;
   pointer-events: none; /* Clicks go through text to the button */
@@ -178,17 +178,17 @@
 
 .button-group {
   display: flex;
-  gap: 30px;
+  gap: 136px;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
 }
 
 .btn {
-  padding: 10px 30px;
+  padding: 24px 60px;
   border-radius: 20px;
   border: none;
-  font-size: 1.2rem;
+  font-size: 3rem;
   cursor: pointer;
 }
 

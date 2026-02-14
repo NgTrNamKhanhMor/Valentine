@@ -23,6 +23,8 @@ interface Props {
 }
 
 export default function DragStage({ onComplete }: Props) {
+  // For random hearts in valentine state
+  const [hearts, setHearts] = useState<{ x: number; y: number; id: number }[]>([]);
   const constraintsRef = useRef(null);
   const [gameStep, setGameStep] = useState<
     "start" | "playing" | "celebrating" | "valentine"
@@ -31,9 +33,9 @@ export default function DragStage({ onComplete }: Props) {
   const [noButtonScale, setNoButtonScale] = useState(1);
   const [catScale, setCatScale] = useState(1);
   const [items, setItems] = useState<Item[]>([
-    { id: "donut", img: donut, x: "75%", y: "15%", fed: false },
-    { id: "icecream", img: icecream, x: "75%", y: "40%", fed: false },
-    { id: "pinkcat", img: catSmall, x: "75%", y: "65%", fed: false },
+    { id: "donut", img: donut, x: "75%", y: "13%", fed: false },
+    { id: "icecream", img: icecream, x: "75%", y: "69%", fed: false },
+    { id: "pinkcat", img: catSmall, x: "10%", y: "50%", fed: false },
   ]);
 
   const allFed = items.every((item) => item.fed);
@@ -80,8 +82,31 @@ export default function DragStage({ onComplete }: Props) {
       );
       setCatScale(1.2);
       setTimeout(() => setCatScale(1), 200);
+
+      if (id === "pinkcat") {
+        // Immediately celebrate when pinkcat is fed
+        setGameStep("celebrating");
+        setCatImage(catGif2); // Image 2
+        setTimeout(() => {
+          setCatImage(catGif3); // Image 3
+          setGameStep("valentine");
+        }, 3000);
+      }
     }
   };
+
+  // Generate random hearts when entering valentine state
+  useEffect(() => {
+    if (gameStep === "valentine") {
+      const count = Math.floor(Math.random() * 30) + 36; // 10-20
+      const newHearts = Array.from({ length: count }, (_, i) => ({
+        id: i,
+        x: Math.random() * 90, // percent of vw
+        y: Math.random() * 80, // percent of vh
+      }));
+      setHearts(newHearts);
+    }
+  }, [gameStep]);
 
   return (
     <BackgroundLayout>
@@ -110,7 +135,7 @@ export default function DragStage({ onComplete }: Props) {
                 className="play-btn-container"
                 onClick={() => setGameStep("playing")}
               >
-                <img src={paper} alt="Play" className="play-button-bg" />
+                <img src={paper} alt="Play" className="play-button-bg" loading="lazy" />
                 <span className="play-btn-text">Play</span>
               </button>
             </motion.div>
@@ -140,20 +165,29 @@ export default function DragStage({ onComplete }: Props) {
 
           {gameStep === "valentine" && (
             <>
-              {[...Array(6)].map((_, i) => (
+              {hearts.map((heart) => (
                 <motion.span
-                  key={i}
+                  key={heart.id}
                   className="floating-heart"
                   initial={{
                     y: "100vh",
-                    x: `${Math.random() * 100}vw`,
                     opacity: 0,
                   }}
-                  animate={{ y: "-10vh", opacity: [0, 1, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, delay: i * 0.8 }}
+                    animate={{
+                      y: `-${5 + Math.random() * 10}vh`,
+                      opacity: [0, 1, 1, 0],
+                    }}
+                    transition={{
+                      duration: 2 + Math.random() * 1.2,
+                      repeat: Infinity,
+                      delay: 0,
+                      times: [0, 0.2, 0.7, 1], // fade out slower at the end
+                    }}
                   style={{
                     position: "fixed",
-                    fontSize: "2rem",
+                    left: `${heart.x}vw`,
+                    top: `${heart.y}vh`,
+                    fontSize: `${1.5 + Math.random()*5}rem`,
                     pointerEvents: "none",
                   }}
                 >
@@ -206,6 +240,7 @@ export default function DragStage({ onComplete }: Props) {
                     whileDrag={{ scale: 1.1, zIndex: 100 }}
                     className="draggable-item"
                     exit={{ scale: 0, opacity: 0 }}
+                    loading="lazy"
                   />
                 ),
             )}
