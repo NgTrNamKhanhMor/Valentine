@@ -24,31 +24,7 @@ interface Props {
 }
 
 export default function DragStage({ onComplete }: Props) {
-      const [audioPrompt, setAudioPrompt] = useState(false);
-    // Music audio ref
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-
-    useEffect(() => {
-      if (audioRef.current) {
-        audioRef.current.volume = 0.25;
-        audioRef.current.loop = true;
-        audioRef.current.play().catch(() => {
-          setAudioPrompt(true);
-        });
-      }
-      return () => {
-        if (audioRef.current) {
-          audioRef.current.pause();
-          audioRef.current.currentTime = 0;
-        }
-      };
-    }, []);
-
-    const handleAudioPrompt = () => {
-      if (audioRef.current) {
-        audioRef.current.play().then(() => setAudioPrompt(false));
-      }
-    };
+    // ...audio logic removed, handled globally in App.jsx
   // For random hearts in valentine state
   const [hearts, setHearts] = useState<{ x: number; y: number; id: number }[]>([]);
   const constraintsRef = useRef(null);
@@ -136,17 +112,6 @@ export default function DragStage({ onComplete }: Props) {
 
   return (
     <BackgroundLayout>
-      {/* Drag music audio */}
-      <audio ref={audioRef} src={dragMusic} autoPlay loop style={{ display: 'none' }} />
-      {audioPrompt && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <button onClick={handleAudioPrompt} style={{ fontSize: '2rem', padding: '1rem 2rem', borderRadius: '2rem', background: '#fff', color: '#d81b60', border: '2px solid #d81b60', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.2)' }}>
-            Click to enable music 🎵
-          </button>
-        </div>
-      )}
-      {/* Drag music audio */}
-      <audio ref={audioRef} src={dragMusic} autoPlay loop style={{ display: 'none' }} />
       <div className="drag-area" ref={constraintsRef}>
         {/* The Cat Image */}
         <div className={`cat-zone ${gameStep !== "playing" ? "start" : ""}`}>
