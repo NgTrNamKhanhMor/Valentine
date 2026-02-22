@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import "../styles/drag.css";
 import paper from "../assets/paper-1.png";
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export default function DragStage({ onComplete }: Props) {
-    // ...audio logic removed, handled globally in App.jsx
+  // ...audio logic removed, handled globally in App.jsx
   // For random hearts in valentine state
   const [hearts, setHearts] = useState<{ x: number; y: number; id: number }[]>([]);
   const constraintsRef = useRef(null);
@@ -97,6 +97,38 @@ export default function DragStage({ onComplete }: Props) {
     }
   };
 
+  // Inside your component, before the return statement:
+  const renderedHearts = useMemo(() => {
+    if (gameStep !== "valentine") return null;
+
+    return hearts.map((heart) => (
+      <motion.span
+        key={heart.id}
+        className="floating-heart"
+        initial={{ y: "100vh", opacity: 0 }}
+        animate={{
+          y: `-${5 + Math.random() * 10}vh`,
+          opacity: [0, 1, 1, 0],
+        }}
+        transition={{
+          duration: 2 + Math.random() * 1.2,
+          repeat: Infinity,
+          delay: Math.random() * 2, // Randomize start times
+          times: [0, 0.2, 0.7, 1],
+        }}
+        style={{
+          position: "fixed",
+          left: `${heart.x}vw`,
+          top: `${heart.y}vh`,
+          fontSize: `${1.5 + Math.random() * 5}rem`,
+          pointerEvents: "none",
+        }}
+      >
+        ❤️
+      </motion.span>
+    ));
+  }, [hearts, gameStep]); // Only re-renders if the hearts array or gameStep changes
+
   // Generate random hearts when entering valentine state
   useEffect(() => {
     if (gameStep === "valentine") {
@@ -167,35 +199,7 @@ export default function DragStage({ onComplete }: Props) {
 
           {gameStep === "valentine" && (
             <>
-              {hearts.map((heart) => (
-                <motion.span
-                  key={heart.id}
-                  className="floating-heart"
-                  initial={{
-                    y: "100vh",
-                    opacity: 0,
-                  }}
-                    animate={{
-                      y: `-${5 + Math.random() * 10}vh`,
-                      opacity: [0, 1, 1, 0],
-                    }}
-                    transition={{
-                      duration: 2 + Math.random() * 1.2,
-                      repeat: Infinity,
-                      delay: 0,
-                      times: [0, 0.2, 0.7, 1], // fade out slower at the end
-                    }}
-                  style={{
-                    position: "fixed",
-                    left: `${heart.x}vw`,
-                    top: `${heart.y}vh`,
-                    fontSize: `${1.5 + Math.random()*5}rem`,
-                    pointerEvents: "none",
-                  }}
-                >
-                  ❤️
-                </motion.span>
-              ))}
+              {renderedHearts}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -208,18 +212,7 @@ export default function DragStage({ onComplete }: Props) {
                   <button className="btn yes-btn" onClick={onComplete}>
                     Yes
                   </button>
-                  <AnimatePresence>
-                    {noButtonScale > 0 && (
-                      <motion.button
-                        className="btn no-btn"
-                        animate={{ scale: noButtonScale }}
-                        onClick={handleNoClick}
-                        exit={{ scale: 0, opacity: 0 }}
-                      >
-                        No
-                      </motion.button>
-                    )}
-                  </AnimatePresence>
+                  <NoButton onNoClick={handleNoClick} />
                 </div>
               </motion.div>
             </>
@@ -251,3 +244,25 @@ export default function DragStage({ onComplete }: Props) {
     </BackgroundLayout>
   );
 }
+
+const NoButton = ({ onNoClick }: { onNoClick: () => void }) => {
+  const [scale, setScale] = useState(1);
+
+  const handleClick = () => {
+    const newScale = Math.max(0, scale - 0.2);
+    setScale(newScale);
+    onNoClick();
+  };
+
+  if (scale <= 0) return null;
+
+  return (
+    <motion.button
+      className="btn no-btn"
+      animate={{ scale }}
+      onClick={handleClick}
+    >
+      No
+    </motion.button>
+  );
+};
